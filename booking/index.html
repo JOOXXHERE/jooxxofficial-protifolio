@@ -12,7 +12,7 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
         .booking-main {
             min-height: 100vh;
@@ -86,13 +86,16 @@
     <div class="cursor-crosshair" id="cursor-crosshair"></div>
     <div class="cursor-coords-badge" id="cursor-coords">X: 000 Y: 000</div>
 
+    <!-- Page Transition Overlay -->
+    <div class="page-transition-overlay slide-out" id="transition-overlay"></div>
+
     <!-- Hidden Iframe to target form submit to prevent page redirects -->
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { handleSuccess(); }"></iframe>
 
     <!-- Booking Main Wrapper -->
     <main class="booking-main">
         <div class="booking-container">
-            <a href="index.html" class="btn-back-home">
+            <a href="../" class="btn-back-home transition-link">
                 <i class="fa-solid fa-arrow-left"></i> Back to Home
             </a>
             
@@ -141,7 +144,7 @@
     </main>
 
     <!-- Custom JS -->
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
     <script>
         // Track form submit state
         let submitted = false;

@@ -216,4 +216,32 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- 9. Clean Page transitions & bfcache recovery ---
+    const transitionOverlay = document.getElementById('transition-overlay');
+    const transitionLinks = document.querySelectorAll('.transition-link');
+
+    if (transitionOverlay) {
+        transitionLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const target = link.getAttribute('href');
+                if (target && !target.startsWith('#')) {
+                    e.preventDefault();
+                    transitionOverlay.classList.remove('slide-out');
+                    transitionOverlay.classList.add('active');
+                    
+                    setTimeout(() => {
+                        window.location.href = target;
+                    }, 600); // matches CSS cubic-bezier transition time
+                }
+            });
+        });
+    }
+
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted && transitionOverlay) {
+            transitionOverlay.classList.remove('active');
+            transitionOverlay.classList.add('slide-out');
+        }
+    });
 });
