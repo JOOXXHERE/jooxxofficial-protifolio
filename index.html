@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jooxx — Official Portfolio</title>
+    <meta name="description" content="Official portfolio of jooxx, a 16-year-old creator specializing in video editing, website engineering, and classical piano.">
+    <!-- Google Fonts: Playfair Display (Serif) & Space Mono (Monospace) & Inter (Sans-Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Minimal Studio Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <span class="preloader-logo">jooxx</span>
+            <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+            <span class="preloader-meta">SOUND, VISUALS & CODE ©2026</span>
+        </div>
+    </div>
+
+    <!-- Custom Coordinate Crosshair Cursor -->
+    <div class="cursor-crosshair" id="cursor-crosshair"></div>
+    <div class="cursor-coords-badge" id="cursor-coords">X: 000 Y: 000</div>
+
+    <!-- Top Minimal Navigation -->
+    <header class="studio-header">
+        <div class="header-inner">
+            <a href="#" class="logo-link">
+                <span class="logo-text logo-glow">jooxx</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Editorial Layout -->
+    <main class="studio-main">
+        
+        <section id="hero" class="hero-showcase">
+            <!-- Active Slide Track -->
+            <div class="slides-container">
+                
+                <!-- Slide 1 -->
+                <div class="slide active" data-slide="0">
+                    <div class="slide-visual visual-bg-1"></div>
+                    <div class="slide-details">
+                        <span class="slide-number">01 / 03</span>
+                        <a href="projects.html" target="_blank" class="slide-title-link">
+                            <h2 class="slide-title">Video Editing</h2>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide" data-slide="1">
+                    <div class="slide-visual visual-bg-2"></div>
+                    <div class="slide-details">
+                        <span class="slide-number">02 / 03</span>
+                        <a href="projects.html" target="_blank" class="slide-title-link">
+                            <h2 class="slide-title">Web Development</h2>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide" data-slide="2">
+                    <div class="slide-visual visual-bg-3"></div>
+                    <div class="slide-details">
+                        <span class="slide-number">03 / 03</span>
+                        <a href="projects.html" target="_blank" class="slide-title-link">
+                            <h2 class="slide-title">Musician & Piano</h2>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Slide Progress Indicators (Horizontal Bars at Bottom) -->
+            <div class="carousel-indicators">
+                <div class="indicator-bar active" data-indicator="0">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="indicator-bar" data-indicator="1">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="indicator-bar" data-indicator="2">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services & Capabilities Section (Outline Grid Style) -->
+        <section id="services" class="services-grid-section">
+            <div class="grid-container">
+                <div class="section-label">Technical Arsenal</div>
+                
+                <!-- Row 1 -->
+                <div class="grid-row" data-expand="video">
+                    <div class="row-header">
+                        <div class="row-title">
+                            <span class="row-index">/01</span>
+                            <h3>Video Editing</h3>
+                        </div>
+                        <span class="row-indicator"><i class="fa-solid fa-plus"></i></span>
+                    </div>
+                    <div class="row-content">
+                        <div class="content-inner">
+                            <p class="row-description">Expert editor focusing on cinematic storytelling, visual precision, and fluid flow. With over 1+ years of post-production experience, I have successfully crafted and edited over 50 videos.</p>
+                            <div class="tags-row">
+                                <span class="service-tag">1+ Year Exp</span>
+                                <span class="service-tag">50+ Videos Edited</span>
+                                <span class="service-tag">Cinematic Pacing</span>
+                                <span class="service-tag">Color Grading</span>
+                                <span class="service-tag">Sound FX & Design</span>
+                                <span class="service-tag">DaVinci Resolve / Premiere</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="grid-row" data-expand="web">
+                    <div class="row-header">
+                        <div class="row-title">
+                            <span class="row-index">/02</span>
+                            <h3>Web Development</h3>
+                        </div>
+                        <span class="row-indicator"><i class="fa-solid fa-plus"></i></span>
+                    </div>
+                    <div class="row-content">
+                        <div class="content-inner">
+                            <p class="row-description">Building responsive, high-performance web applications. I focus on creating clean structures, fluid CSS layouts, and micro-interactions. Deployed 4 active production websites.</p>
+                            <div class="tags-row">
+                                <span class="service-tag">4 Websites Built</span>
+                                <span class="service-tag">Responsive Layouts</span>
+                                <span class="service-tag">UI/UX Prototyping</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="grid-row" data-expand="piano">
+                    <div class="row-header">
+                        <div class="row-title">
+                            <span class="row-index">/03</span>
+                            <h3>Musician & Piano</h3>
+                        </div>
+                        <span class="row-indicator"><i class="fa-solid fa-plus"></i></span>
+                    </div>
+                    <div class="row-content">
+                        <div class="content-inner">
+                            <p class="row-description">Composer, pianist, and sound designer creating immersive auditory landscapes. I have composed over 8 tracks, exploring how tempo and harmonic intervals shape visual cuts.</p>
+                            <div class="tags-row">
+                                <span class="service-tag">Pianist</span>
+                                <span class="service-tag">8 Tracks Composed</span>
+                                <span class="service-tag">Sound Design</span>
+                                <span class="service-tag">Harmonic Tempo</span>
+                                <span class="service-tag">Rhythmic Flow</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section (Asymmetric Minimal Layout) -->
+        <section id="about" class="about-editorial-section">
+            <div class="about-container">
+                <div class="about-label">Profile Statement</div>
+                <div class="about-main-text">
+                    <p class="editorial-statement">
+                        I am jooxx, a 16-year-old creator crafting strong digital brands through sound, visuals, and code. Partnering with creators and tech teams to build the future.
+                    </p>
+                </div>
+                <div class="about-sub-grid">
+                    <div class="sub-col">
+                        <span class="mono-label">// Rhythmic Editing</span>
+                        <p>Pacing is the heart of video editing. My training on the piano teaches me structural tempo, helping me execute edits that align dynamically to audio tracks.</p>
+                    </div>
+                    <div class="sub-col">
+                        <span class="mono-label">// Gamer & Competitor</span>
+                        <p>Passionate gamer exploring digital worlds. Competitive gaming keeps my creative problem-solving sharp, influencing how I write code and design pages.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-editorial-section">
+            <div class="contact-container">
+                <div class="contact-header-layout">
+                    <span class="contact-label">Collab</span>
+                    <h2>Start a project</h2>
+                    <div class="contact-meta-list" style="margin-top: 24px; display: flex; flex-direction: column; gap: 16px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
+                        <div>
+                            <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;">Email</span>
+                            <a href="mailto:jooxxofficial@gmail.com" class="footer-link" style="color: var(--text-color);">jooxxofficial@gmail.com</a>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;">Call</span>
+                            <a href="tel:+918590960674" class="footer-link" style="color: var(--text-color);">+91 8590960674</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hidden Iframe to target collab form submit -->
+                <iframe name="hidden_collab_iframe" id="hidden_collab_iframe" style="display:none;" onload="if(collab_submitted) { handleCollabSuccess(); }"></iframe>
+
+                <form id="studio-connect-form" 
+                      action="https://docs.google.com/forms/d/e/1FAIpQLSfJL3dYq66mVWLz3n3A3taRNccIHS3jzWIvYAByEgkHhkynGw/formResponse" 
+                      method="POST" 
+                      target="hidden_collab_iframe" 
+                      onsubmit="collab_submitted=true;"
+                      class="studio-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="user-name" class="mono-label">Name</label>
+                            <input type="text" id="user-name" name="entry.1844207338" class="studio-input" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-email" class="mono-label">Email</label>
+                            <input type="email" id="user-email" name="entry.685955476" class="studio-input" placeholder="Your Email" required>
+                        </div>
+                    </div>
+                    <div class="form-group margin-top-large">
+                        <label for="user-message" class="mono-label">Project Details</label>
+                        <textarea id="user-message" name="entry.479589735" class="studio-textarea" placeholder="Tell me about your video edit or web project idea..." required></textarea>
+                    </div>
+                    
+                    <div class="submit-row">
+                        <button type="submit" class="btn-studio-submit" id="submit-btn">
+                            Send Message <i class="fa-solid fa-arrow-right icon-right"></i>
+                        </button>
+                        <div class="form-status" id="form-status"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Floating Bottom Navigation Pill Dock -->
+    <div class="floating-dock-container">
+        <div class="floating-dock">
+            <a href="booking.html" class="dock-action-btn group">
+                <span class="dock-btn-text">Book a 1:1 Call</span>
+                <!-- Interactive Dot Matrix Grid Icon -->
+                <svg class="dot-matrix-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="dot-matrix-group">
+                        <rect x="20" y="20" width="10" height="10" rx="5" class="matrix-dot" style="--i:0"></rect>
+                        <rect x="45" y="20" width="10" height="10" rx="5" class="matrix-dot" style="--i:1"></rect>
+                        <rect x="70" y="20" width="10" height="10" rx="5" class="matrix-dot" style="--i:2"></rect>
+                        
+                        <rect x="20" y="45" width="10" height="10" rx="5" class="matrix-dot" style="--i:3"></rect>
+                        <rect x="45" y="45" width="10" height="10" rx="5" class="matrix-dot" style="--i:4"></rect>
+                        <rect x="70" y="45" width="10" height="10" rx="5" class="matrix-dot" style="--i:5"></rect>
+                        
+                        <rect x="20" y="70" width="10" height="10" rx="5" class="matrix-dot" style="--i:6"></rect>
+                        <rect x="45" y="70" width="10" height="10" rx="5" class="matrix-dot" style="--i:7"></rect>
+                        <rect x="70" y="70" width="10" height="10" rx="5" class="matrix-dot" style="--i:8"></rect>
+                    </g>
+                </svg>
+            </a>
+            <div class="dock-separator"></div>
+            <nav class="dock-nav">
+                <a href="#hero" class="dock-link active">Home</a>
+                <a href="#services" class="dock-link">Services</a>
+                <a href="#about" class="dock-link">About</a>
+                <a href="projects.html" target="_blank" class="dock-link">Works</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Studio Footer -->
+    <footer class="studio-footer">
+        <div class="footer-inner">
+            <span class="footer-copy">© 2026 jooxx. ALL RIGHTS RESERVED.</span>
+            <div class="footer-links">
+                <a href="https://www.instagram.com/captain_jooxx" target="_blank" class="footer-link">Instagram</a>
+                <a href="https://www.youtube.com/@CaptainJOOXX/featured" target="_blank" class="footer-link">YouTube</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

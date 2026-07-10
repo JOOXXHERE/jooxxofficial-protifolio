@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jooxx — Book a 1:1 Call</title>
+    <meta name="description" content="Schedule a call with jooxx to discuss video editing, web development, or creative design collaborations.">
+    <!-- Google Fonts: Playfair Display (Serif) & Space Mono (Monospace) & Inter (Sans-Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .booking-main {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 24px;
+        }
+
+        .booking-container {
+            max-width: 650px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            background-color: rgba(18, 18, 18, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .booking-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .booking-header h1 {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 400;
+        }
+
+        .booking-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .btn-back-home {
+            align-self: flex-start;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-back-home:hover {
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            .booking-container {
+                padding: 40px 24px;
+            }
+            .booking-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Coordinate Crosshair Cursor -->
+    <div class="cursor-crosshair" id="cursor-crosshair"></div>
+    <div class="cursor-coords-badge" id="cursor-coords">X: 000 Y: 000</div>
+
+    <!-- Hidden Iframe to target form submit to prevent page redirects -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { handleSuccess(); }"></iframe>
+
+    <!-- Booking Main Wrapper -->
+    <main class="booking-main">
+        <div class="booking-container">
+            <a href="index.html" class="btn-back-home">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </a>
+            
+            <div class="booking-header">
+                <span class="mono-label">// Schedule Session</span>
+                <h1>Book a 1:1 Call</h1>
+                <p>Fill out the fields below. Once submitted, your request is logged directly in our scheduling sheets, and I'll follow up with a meeting slot link.</p>
+            </div>
+
+            <!-- Custom Form mapped to Google Forms action response endpoint -->
+            <form id="booking-details-form" 
+                  action="https://docs.google.com/forms/d/e/1FAIpQLSfHvPKR98Z6UxrvZWNefIS4r5iQWYkeOmm6xeRufBupeS5dvw/formResponse" 
+                  method="POST" 
+                  target="hidden_iframe" 
+                  onsubmit="submitted=true;"
+                  class="studio-form">
+                
+                <div class="form-grid" style="grid-template-columns: 1fr;">
+                    <!-- Name Input (Google Form Entry ID: entry.1058441618) -->
+                    <div class="form-group">
+                        <label for="booking-name" class="mono-label">Name</label>
+                        <input type="text" id="booking-name" name="entry.1058441618" class="studio-input" placeholder="Your Name" required>
+                    </div>
+                    
+                    <!-- Email Input (Google Form Entry ID: entry.2037064031) -->
+                    <div class="form-group margin-top-large">
+                        <label for="booking-email" class="mono-label">Email</label>
+                        <input type="email" id="booking-email" name="entry.2037064031" class="studio-input" placeholder="Your Email Address" required>
+                    </div>
+
+                    <!-- Phone Number Input - Optional (Google Form Entry ID: entry.340580791) -->
+                    <div class="form-group margin-top-large">
+                        <label for="booking-phone" class="mono-label">Phone Number (Optional)</label>
+                        <input type="tel" id="booking-phone" name="entry.340580791" class="studio-input" placeholder="Your Phone Number">
+                    </div>
+                </div>
+
+                <div class="submit-row" style="margin-top: 50px;">
+                    <button type="submit" class="btn-studio-submit" id="booking-submit-btn">
+                        Request Call <i class="fa-solid fa-calendar-plus icon-right"></i>
+                    </button>
+                    <div class="form-status" id="booking-status"></div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+    <script>
+        // Track form submit state
+        let submitted = false;
+        
+        const bookingStatus = document.getElementById('booking-status');
+        const submitBtn = document.getElementById('booking-submit-btn');
+        const bookingForm = document.getElementById('booking-details-form');
+
+        // Form submit animation trigger
+        bookingForm.addEventListener('submit', () => {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Submitting... <i class="fa-solid fa-spinner fa-spin icon-right"></i>';
+        });
+
+        // Triggered by the onload event of the hidden iframe once Google Forms receives the post request
+        function handleSuccess() {
+            bookingStatus.textContent = "Call request successfully logged. I'll email you soon!";
+            bookingStatus.className = "form-status success";
+            submitBtn.innerHTML = 'Submitted <i class="fa-solid fa-check icon-right"></i>';
+            bookingForm.reset();
+            submitted = false;
+
+            // Reset button to original state after 5 seconds
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Request Call <i class="fa-solid fa-calendar-plus icon-right"></i>';
+                bookingStatus.textContent = "";
+                bookingStatus.className = "form-status";
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
