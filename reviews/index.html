@@ -31,7 +31,7 @@
             flex-direction: column;
             align-items: center;
             gap: 16px;
-            margin-bottom: 80px;
+            margin-bottom: 40px;
         }
 
         .portal-header h1 {
@@ -48,7 +48,71 @@
             max-width: 600px;
         }
 
-        /* Editorial Typography Testimonials List */
+        /* Review Trigger Button */
+        .btn-write-review {
+            background: none;
+            border: 1px solid var(--text-color);
+            color: var(--text-color);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 12px 24px;
+            border-radius: 4px;
+            transition: var(--transition-fast);
+            margin-bottom: 60px;
+        }
+
+        .btn-write-review:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* Review Form Section */
+        .review-form-container {
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid var(--border-color);
+            background-color: rgba(18, 18, 18, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 60px;
+            display: none; /* Toggle display */
+            flex-direction: column;
+            gap: 24px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .rating-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .star-rating-selector {
+            display: flex;
+            gap: 8px;
+            font-size: 1.6rem;
+            color: var(--text-muted);
+        }
+
+        .star-rating-selector i {
+            transition: var(--transition-fast);
+        }
+
+        .star-rating-selector i.active,
+        .star-rating-selector i.hover {
+            color: #ffc107;
+        }
+
+        /* Editorial Testimonials List */
         .reviews-list {
             display: flex;
             flex-direction: column;
@@ -62,11 +126,19 @@
             border-bottom: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
+            animation: fadeIn 0.6s ease-out;
         }
 
         .review-item:first-child {
             padding-top: 0;
+        }
+
+        .review-stars {
+            color: #ffc107;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 4px;
         }
 
         .review-quote {
@@ -75,15 +147,20 @@
             font-style: italic;
             line-height: 1.5;
             color: var(--text-color);
-            position: relative;
         }
 
-        .review-author {
+        .review-author-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-family: var(--font-mono);
             font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
+        }
+
+        .review-author {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -95,6 +172,17 @@
             width: 20px;
             height: 1px;
             background-color: var(--border-color);
+        }
+
+        .empty-state {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 800px;
         }
 
         .btn-back-home {
@@ -126,6 +214,9 @@
             .review-item {
                 padding: 36px 0;
             }
+            .review-form-container {
+                padding: 24px 16px;
+            }
         }
     </style>
 </head>
@@ -141,51 +232,51 @@
     <!-- Main Reviews Showcase -->
     <main class="reviews-portal">
         <div class="portal-header">
-            <span class="mono-label">// what clients say</span>
+            <span class="mono-label">// client statements</span>
             <h1>Reviews & Feedback</h1>
             <p>Statements and critiques from creative partners, agencies, and contract collaborators.</p>
         </div>
 
-        <div class="reviews-list">
-            <!-- Review 1 -->
-            <div class="review-item">
-                <blockquote class="review-quote">
-                    "The video pacing and synchronization in his cuts is masterfully done. An editor who truly understands auditory rhythm."
-                </blockquote>
-                <div class="review-author">Pulse Media Design Agency</div>
-            </div>
+        <!-- Write a Review Button -->
+        <button class="btn-write-review" id="btn-toggle-form">Write a Review</button>
 
-            <!-- Review 2 -->
-            <div class="review-item">
-                <blockquote class="review-quote">
-                    "Built our landing experience with pristine slide transitions and responsive code. A highly talented engineer."
-                </blockquote>
-                <div class="review-author">VibeTech Studios</div>
-            </div>
+        <!-- Review Input Form (Hidden by default) -->
+        <div class="review-form-container" id="review-form-box">
+            <h3 class="mono-label" style="color: var(--text-color); font-size: 0.85rem;">Submit Testimonial</h3>
+            
+            <form id="new-review-form">
+                <div class="form-group">
+                    <label for="reviewer-name" class="mono-label">Your Name / Agency</label>
+                    <input type="text" id="reviewer-name" class="studio-input" placeholder="e.g. John Doe, Pulse Media" required>
+                </div>
 
-            <!-- Review 3 -->
-            <div class="review-item">
-                <blockquote class="review-quote">
-                    "His editing decisions translate directly into high-retention social content. Exceeded our expectations on layout revisions."
-                </blockquote>
-                <div class="review-author">Kinetic Media Networks</div>
-            </div>
+                <div class="form-group margin-top-large">
+                    <label for="reviewer-text" class="mono-label">Review / Feedback</label>
+                    <textarea id="reviewer-text" class="studio-textarea" placeholder="Tell others about your experience working with me..." required></textarea>
+                </div>
 
-            <!-- Review 4 -->
-            <div class="review-item">
-                <blockquote class="review-quote">
-                    "A rare blend of musical intuition and post-production prowess. His editorial flow is incredibly clean."
-                </blockquote>
-                <div class="review-author">Director, SonicArts Collective</div>
-            </div>
+                <div class="rating-input-group margin-top-large">
+                    <label class="mono-label">Rating</label>
+                    <div class="star-rating-selector" id="star-selector">
+                        <i class="fa-star fa-regular" data-rating="1"></i>
+                        <i class="fa-star fa-regular" data-rating="2"></i>
+                        <i class="fa-star fa-regular" data-rating="3"></i>
+                        <i class="fa-star fa-regular" data-rating="4"></i>
+                        <i class="fa-star fa-regular" data-rating="5"></i>
+                    </div>
+                </div>
 
-            <!-- Review 5 -->
-            <div class="review-item">
-                <blockquote class="review-quote">
-                    "Reliable delivery, fast response time, and exceptional creative direction. Highly recommended for premium reels."
-                </blockquote>
-                <div class="review-author">Apex Ventures Group</div>
-            </div>
+                <div class="submit-row" style="margin-top: 32px;">
+                    <button type="submit" class="btn-studio-submit">
+                        Post Review <i class="fa-solid fa-paper-plane icon-right"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Testimonials List Container -->
+        <div class="reviews-list" id="reviews-feed">
+            <!-- Dynamic Content Injected Here -->
         </div>
 
         <a href="../" class="btn-back-home transition-link">
@@ -195,5 +286,168 @@
 
     <!-- Custom JS -->
     <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnToggleForm = document.getElementById('btn-toggle-form');
+            const reviewFormBox = document.getElementById('review-form-box');
+            const newReviewForm = document.getElementById('new-review-form');
+            const reviewerName = document.getElementById('reviewer-name');
+            const reviewerText = document.getElementById('reviewer-text');
+            const starSelector = document.getElementById('star-selector');
+            const reviewsFeed = document.getElementById('reviews-feed');
+
+            let selectedRating = 5; // Default rating
+
+            // Toggle form open/close
+            btnToggleForm.addEventListener('click', () => {
+                if (reviewFormBox.style.display === 'flex') {
+                    reviewFormBox.style.display = 'none';
+                    btnToggleForm.textContent = 'Write a Review';
+                } else {
+                    reviewFormBox.style.display = 'flex';
+                    btnToggleForm.textContent = 'Cancel';
+                    reviewFormBox.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            // Star Rating Selector Interaction
+            const stars = Array.from(starSelector.querySelectorAll('i'));
+            
+            function updateStars(rating, type = 'active') {
+                stars.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.remove('fa-regular');
+                        star.classList.add('fa-solid', type);
+                    } else {
+                        star.classList.remove('fa-solid', 'active', 'hover');
+                        star.classList.add('fa-regular');
+                    }
+                });
+            }
+
+            // Initialize default stars (5 stars)
+            updateStars(selectedRating);
+
+            stars.forEach(star => {
+                star.addEventListener('mouseenter', () => {
+                    const rating = parseInt(star.getAttribute('data-rating'));
+                    updateStars(rating, 'hover');
+                });
+
+                star.addEventListener('mouseleave', () => {
+                    updateStars(selectedRating, 'active');
+                });
+
+                star.addEventListener('click', () => {
+                    selectedRating = parseInt(star.getAttribute('data-rating'));
+                    updateStars(selectedRating, 'active');
+                });
+            });
+
+            // LocalStorage reviews state
+            const STORAGE_KEY = 'jooxx_portfolio_reviews';
+
+            function getReviews() {
+                const data = localStorage.getItem(STORAGE_KEY);
+                return data ? JSON.parse(data) : [];
+            }
+
+            function saveReviews(reviews) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+            }
+
+            function renderReviews() {
+                const reviews = getReviews();
+                reviewsFeed.innerHTML = '';
+
+                if (reviews.length === 0) {
+                    reviewsFeed.innerHTML = `
+                        <div class="empty-state" id="reviews-empty">
+                            No reviews posted yet. Be the first to write a testimonial!
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Render in reverse chronological order (newest first)
+                reviews.slice().reverse().forEach(review => {
+                    const item = document.createElement('div');
+                    item.className = 'review-item';
+
+                    // Generate stars markup
+                    let starsMarkup = '';
+                    for (let i = 1; i <= 5; i++) {
+                        if (i <= review.rating) {
+                            starsMarkup += '<i class="fa-solid fa-star"></i>';
+                        } else {
+                            starsMarkup += '<i class="fa-regular fa-star"></i>';
+                        }
+                    }
+
+                    item.innerHTML = `
+                        <div class="review-stars">
+                            ${starsMarkup}
+                        </div>
+                        <blockquote class="review-quote">
+                            "${escapeHTML(review.text)}"
+                        </blockquote>
+                        <div class="review-author-meta">
+                            <span class="review-author">${escapeHTML(review.name)}</span>
+                            <span>${review.date}</span>
+                        </div>
+                    `;
+                    reviewsFeed.appendChild(item);
+                });
+            }
+
+            function escapeHTML(str) {
+                return str.replace(/[&<>'"]/g, 
+                    tag => ({
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        "'": '&#39;',
+                        '"': '&quot;'
+                    }[tag] || tag)
+                );
+            }
+
+            // Post new review handler
+            newReviewForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const name = reviewerName.value.trim();
+                const text = reviewerText.value.trim();
+                
+                if (!name || !text) return;
+
+                const newReview = {
+                    name: name,
+                    text: text,
+                    rating: selectedRating,
+                    date: new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+                };
+
+                const reviews = getReviews();
+                reviews.push(newReview);
+                saveReviews(reviews);
+
+                // Reset form
+                newReviewForm.reset();
+                selectedRating = 5;
+                updateStars(selectedRating);
+
+                // Hide form
+                reviewFormBox.style.display = 'none';
+                btnToggleForm.textContent = 'Write a Review';
+
+                // Rerender feed
+                renderReviews();
+            });
+
+            // Initial render
+            renderReviews();
+        });
+    </script>
 </body>
 </html>
