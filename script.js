@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 7. Dock Highlight Navigation Link ---
-    const dockLinks = document.querySelectorAll('.dock-link');
+    const dockLinks = document.querySelectorAll('.dock-link, .mobile-dock-link');
     const sections = document.querySelectorAll('section');
 
     window.addEventListener('scroll', () => {
