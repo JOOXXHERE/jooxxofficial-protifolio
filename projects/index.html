@@ -46,67 +46,45 @@
             max-width: 600px;
         }
 
-        /* Videos Grid */
+        /* Raw Videos Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
             width: 100%;
             max-width: 1200px;
+            align-items: start;
         }
 
-        .video-card {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+        .projects-grid video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            background-color: rgba(18, 18, 18, 0.2);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 12px;
-            padding: 20px;
+            background-color: #000;
+            display: block;
+            object-fit: contain;
+            aspect-ratio: auto;
             transition: var(--transition-editorial);
         }
 
-        .video-card:hover {
+        .projects-grid video:hover {
             border-color: var(--text-color);
-            transform: translateY(-6px);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
-        .video-card video {
-            width: 100%;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            aspect-ratio: 16/9;
-            object-fit: cover;
-            background-color: #000;
-        }
-
-        .video-card-info {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .video-title {
-            font-family: var(--font-serif);
-            font-size: 1.35rem;
-            font-weight: 400;
-            color: var(--text-color);
-        }
-
-        .video-meta {
-            display: flex;
-            justify-content: space-between;
+        /* YouTube Channel CTA */
+        .youtube-cta {
+            margin-top: 50px;
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            text-align: center;
         }
 
         .btn-back-home {
-            margin-top: 60px;
+            margin-top: 50px;
             font-family: var(--font-mono);
             font-size: 0.75rem;
             color: var(--text-muted);
@@ -123,13 +101,15 @@
 
         @media (max-width: 1024px) {
             .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                max-width: 650px;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
             .portal-header h1 {
                 font-size: 2.5rem;
             }
@@ -157,113 +137,23 @@
         </div>
 
         <div class="projects-grid">
-            <!-- Video Card 1 -->
-            <div class="video-card">
-                <video src="videos/fully_finished.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>REEL HIGHLIGHT</span><span>MP4</span></span>
-                    <h3 class="video-title">Reel Highlight Showcase</h3>
-                </div>
-            </div>
+            <video src="videos/fully_finished.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/edited_no_audio.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/first_motion_video_lays.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/motion_2.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/lyrical.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/lyrical_2.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/whatsapp_video_5.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/motion_3.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/whatsapp_video_2.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/whatsapp_video_4.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/whatsapp_video_3.mp4" autoplay loop muted playsinline></video>
+            <video src="videos/whatsapp_video_1.mp4" autoplay loop muted playsinline></video>
+        </div>
 
-            <!-- Video Card 2 -->
-            <div class="video-card">
-                <video src="videos/edited_no_audio.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>ATMOSPHERE REEL</span><span>MP4</span></span>
-                    <h3 class="video-title">Atmosphere Reel (Muted)</h3>
-                </div>
-            </div>
-
-            <!-- Video Card 3 -->
-            <div class="video-card">
-                <video src="videos/first_motion_video_lays.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>MOTION DESIGN</span><span>MP4</span></span>
-                    <h3 class="video-title">Kinetic Typography & Layouts</h3>
-                </div>
-            </div>
-
-            <!-- Video Card 4 -->
-            <div class="video-card">
-                <video src="videos/motion_2.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>MOTION GRAPHICS</span><span>MP4</span></span>
-                    <h3 class="video-title">Motion Graphics Showcase</h3>
-                </div>
-            </div>
-
-            <!-- Video Card 5 -->
-            <div class="video-card">
-                <video src="videos/lyrical.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>LYRICAL SEQUENCE I</span><span>MP4</span></span>
-                    <h3 class="video-title">Lyrical Cut I</h3>
-                </div>
-            </div>
-
-            <!-- Video Card 6 -->
-            <div class="video-card">
-                <video src="videos/lyrical_2.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>LYRICAL SEQUENCE II</span><span>MP4</span></span>
-                    <h3 class="video-title">Lyrical Cut II</h3>
-                </div>
-            </div>
-
-            <!-- Video Card 7 -->
-            <div class="video-card">
-                <video src="videos/whatsapp_video_5.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>SOCIAL MEDIA EDIT</span><span>MP4</span></span>
-                    <h3 class="video-title">Social Edit V</h3>
-                </div>
-            </div>
-
-            <!-- Video Card 8 -->
-            <div class="video-card">
-                <video src="videos/motion_3.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>MOTION ACCENT</span><span>MP4</span></span>
-                    <h3 class="video-title">Motion Graphic Accent</h3>
-                </div>
-            </div>
-
-            <!-- Video Card 9 -->
-            <div class="video-card">
-                <video src="videos/whatsapp_video_2.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>SOCIAL CUT II</span><span>MP4</span></span>
-                    <h3 class="video-title">Social Edit II</h3>
-                </div>
-            </div>
-
-            <!-- Video Card 10 -->
-            <div class="video-card">
-                <video src="videos/whatsapp_video_4.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>SOCIAL CUT IV</span><span>MP4</span></span>
-                    <h3 class="video-title">Social Edit IV</h3>
-                </div>
-            </div>
-
-            <!-- Video Card 11 -->
-            <div class="video-card">
-                <video src="videos/whatsapp_video_3.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>SOCIAL CUT III</span><span>MP4</span></span>
-                    <h3 class="video-title">Social Edit III</h3>
-                </div>
-            </div>
-
-            <!-- Video Card 12 -->
-            <div class="video-card">
-                <video src="videos/whatsapp_video_1.mp4" autoplay loop muted playsinline></video>
-                <div class="video-card-info">
-                    <span class="video-meta"><span>SOCIAL CUT I</span><span>MP4</span></span>
-                    <h3 class="video-title">Social Edit I</h3>
-                </div>
-            </div>
+        <!-- YouTube Call to Action underneath grid -->
+        <div class="youtube-cta">
+            To see more, check my <a href="https://www.youtube.com/@CaptainJOOXX/featured" target="_blank" class="footer-link" style="color: var(--text-color); text-decoration: underline;">YouTube channel</a>
         </div>
 
         <a href="../" class="btn-back-home transition-link">
