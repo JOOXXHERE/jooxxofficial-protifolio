@@ -394,29 +394,12 @@
                         </blockquote>
                         <div class="review-author-meta">
                             <span class="review-author">${escapeHTML(review.name)}</span>
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <span>${review.date}</span>
-                                <button class="btn-delete-review" data-index="${originalIndex}" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.85rem; padding: 2px 4px; transition: var(--transition-fast);" onmouseover="this.style.color='#ff4a4a'" onmouseout="this.style.color='var(--text-muted)'">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </span>
+                            <span>${review.date}</span>
                         </div>
                     `;
                     reviewsFeed.appendChild(item);
                 });
             }
-
-            // Handle review deletion via event delegation
-            reviewsFeed.addEventListener('click', (e) => {
-                const deleteBtn = e.target.closest('.btn-delete-review');
-                if (deleteBtn) {
-                    const indexToDelete = parseInt(deleteBtn.getAttribute('data-index'));
-                    let reviews = getReviews();
-                    reviews.splice(indexToDelete, 1);
-                    saveReviews(reviews);
-                    renderReviews();
-                }
-            });
 
             function escapeHTML(str) {
                 return str.replace(/[&<>'"]/g, 
