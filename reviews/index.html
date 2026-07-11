@@ -253,7 +253,6 @@
             <span class="mono-label">// client statements</span>
             <h1>Reviews & Feedback</h1>
             <p>Statements and critiques from creative partners, agencies, and contract collaborators.</p>
-            <div class="db-status-badge" id="db-status">Loading Database...</div>
         </div>
 
         <!-- Write a Review Button -->
@@ -334,7 +333,6 @@
             const starSelector = document.getElementById('star-selector');
             const reviewsFeed = document.getElementById('reviews-feed');
             const ratingInput = document.getElementById('reviewer-rating-input');
-            const dbStatus = document.getElementById('db-status');
             const submitBtn = document.getElementById('review-submit-btn');
 
             let selectedRating = 5;
@@ -344,17 +342,11 @@
             const isDbConfigured = DB_CONFIG.formAction && DB_CONFIG.entryName && DB_CONFIG.entryText && DB_CONFIG.entryRating && DB_CONFIG.sheetsCsvUrl;
 
             if (isDbConfigured) {
-                dbStatus.textContent = "Google Sheets DB: Synced";
-                dbStatus.className = "db-status-badge synced";
-                
                 // Map Form settings dynamically
                 newReviewForm.action = DB_CONFIG.formAction;
                 reviewerName.name = DB_CONFIG.entryName;
                 reviewerText.name = DB_CONFIG.entryText;
                 ratingInput.name = DB_CONFIG.entryRating;
-            } else {
-                dbStatus.textContent = "Running: LocalStorage Mode (Setup Sheet link to Sync)";
-                dbStatus.className = "db-status-badge";
             }
 
             // Toggle form open/close
