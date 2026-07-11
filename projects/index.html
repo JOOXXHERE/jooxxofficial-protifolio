@@ -100,6 +100,32 @@
             text-align: center;
         }
 
+        /* Musics Grid & Reels Frame Styles */
+        .music-grid {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .instagram-frame {
+            width: 328px;
+            height: 480px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #000;
+            transition: var(--transition-editorial);
+        }
+
+        .instagram-frame:hover {
+            border-color: var(--text-color);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
         .btn-back-home {
             margin-top: 50px;
             font-family: var(--font-mono);
@@ -133,6 +159,14 @@
             }
             .projects-portal {
                 padding: 80px 24px;
+            }
+            .music-grid {
+                gap: 20px;
+            }
+            .instagram-frame {
+                width: 100%;
+                max-width: 300px;
+                height: 440px;
             }
         }
     </style>
@@ -172,6 +206,22 @@
 
         <div class="youtube-cta">
             To see more, check my <a href="https://www.youtube.com/@CaptainJOOXX/featured" target="_blank" class="footer-link" style="color: var(--text-color); font-weight: 500;">YouTube channel</a>
+        </div>
+
+        <!-- Divider line between Video Editing & Classical Music sections -->
+        <div style="width: 100%; max-width: 1400px; height: 1px; background-color: var(--border-color); margin: 60px 0 80px 0;"></div>
+
+        <!-- Musics Section Header -->
+        <div class="portal-header" style="margin-bottom: 40px;">
+            <span class="mono-label">// classical piano & audio works</span>
+            <h1 style="margin-top: 10px;">Musics</h1>
+            <p>Classical piano performance reels, interpretations, and compositions.</p>
+        </div>
+
+        <!-- Musics Embedded Reels Grid -->
+        <div class="music-grid">
+            <iframe src="https://www.instagram.com/reel/DNKtUTsy2fX/embed/" class="instagram-frame" frameborder="0" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+            <iframe src="https://www.instagram.com/reel/C8KT8Bryi8s/embed/" class="instagram-frame" frameborder="0" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
         </div>
 
         <a href="../" class="btn-back-home transition-link">
