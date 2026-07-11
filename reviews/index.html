@@ -444,7 +444,8 @@
 
             async function fetchGlobalReviews() {
                 try {
-                    const response = await fetch(DB_CONFIG.sheetsCsvUrl);
+                    const cacheBusterUrl = DB_CONFIG.sheetsCsvUrl + (DB_CONFIG.sheetsCsvUrl.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+                    const response = await fetch(cacheBusterUrl, { cache: "no-store" });
                     if (!response.ok) throw new Error("Network status error");
                     const csvText = await response.text();
                     const parsedLines = parseCSV(csvText);
