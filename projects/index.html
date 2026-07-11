@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jooxx — Works Under Construction</title>
-    <meta name="description" content="Portfolio works directory is currently under construction. Check back soon.">
+    <title>jooxx — Videos Edited</title>
+    <meta name="description" content="Explore my edited video works and post-production clips.">
     <!-- Google Fonts: Playfair Display (Serif) & Space Mono (Monospace) & Inter (Sans-Serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,18 +18,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            padding: 100px 24px;
             min-height: 100vh;
-            text-align: center;
-            padding: 80px 24px;
         }
 
         .portal-header {
-            max-width: 600px;
+            max-width: 800px;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
+            margin-bottom: 60px;
         }
 
         .portal-header h1 {
@@ -43,24 +43,70 @@
             color: var(--text-muted);
             font-size: 1.05rem;
             line-height: 1.6;
-            margin-bottom: 20px;
+            max-width: 600px;
         }
 
-        .construction-icon-box {
-            font-size: 4rem;
+        /* Videos Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .video-card {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            border: 1px solid var(--border-color);
+            background-color: rgba(18, 18, 18, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition-editorial);
+        }
+
+        .video-card:hover {
+            border-color: var(--text-color);
+            transform: translateY(-6px);
+        }
+
+        .video-card video {
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            background-color: #000;
+        }
+
+        .video-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .video-title {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 400;
             color: var(--text-color);
-            margin-bottom: 12px;
-            opacity: 0.85;
-            animation: floatIcon 4s ease-in-out infinite alternate;
         }
 
-        @keyframes floatIcon {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-10px) rotate(5deg); }
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn-back-home {
-            margin-top: 50px;
+            margin-top: 60px;
             font-family: var(--font-mono);
             font-size: 0.75rem;
             color: var(--text-muted);
@@ -75,9 +121,20 @@
             color: var(--text-color);
         }
 
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                max-width: 650px;
+            }
+        }
+
         @media (max-width: 768px) {
             .portal-header h1 {
-                font-size: 2.4rem;
+                font-size: 2.5rem;
+            }
+            .projects-portal {
+                padding: 80px 24px;
             }
         }
     </style>
@@ -91,15 +148,122 @@
     <!-- Page Transition Overlay -->
     <div class="page-transition-overlay slide-out" id="transition-overlay"></div>
 
-    <!-- Main Portal Wrapper -->
+    <!-- Main Works Showcase -->
     <main class="projects-portal">
         <div class="portal-header">
-            <div class="construction-icon-box">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
+            <span class="mono-label">// visual editing portfolio</span>
+            <h1>Videos Edited</h1>
+            <p>Explore my editorial video cuts, sync reels, and motion designs. Hover and play individual clips to see the timing and pacing in action.</p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Video Card 1 -->
+            <div class="video-card">
+                <video src="videos/fully_finished.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>REEL HIGHLIGHT</span><span>MP4</span></span>
+                    <h3 class="video-title">Reel Highlight Showcase</h3>
+                </div>
             </div>
-            <span class="mono-label">// Works Directory</span>
-            <h1>Under Construction</h1>
-            <p>I am currently assembling my video editing reels, website engineering projects, and classical piano performances. Check back soon for the completed portal showcase.</p>
+
+            <!-- Video Card 2 -->
+            <div class="video-card">
+                <video src="videos/edited_no_audio.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>ATMOSPHERE REEL</span><span>MP4</span></span>
+                    <h3 class="video-title">Atmosphere Reel (Muted)</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 3 -->
+            <div class="video-card">
+                <video src="videos/first_motion_video_lays.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>MOTION DESIGN</span><span>MP4</span></span>
+                    <h3 class="video-title">Kinetic Typography & Layouts</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 4 -->
+            <div class="video-card">
+                <video src="videos/motion_2.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>MOTION GRAPHICS</span><span>MP4</span></span>
+                    <h3 class="video-title">Motion Graphics Showcase</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 5 -->
+            <div class="video-card">
+                <video src="videos/lyrical.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>LYRICAL SEQUENCE I</span><span>MP4</span></span>
+                    <h3 class="video-title">Lyrical Cut I</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 6 -->
+            <div class="video-card">
+                <video src="videos/lyrical_2.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>LYRICAL SEQUENCE II</span><span>MP4</span></span>
+                    <h3 class="video-title">Lyrical Cut II</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 7 -->
+            <div class="video-card">
+                <video src="videos/whatsapp_video_5.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>SOCIAL MEDIA EDIT</span><span>MP4</span></span>
+                    <h3 class="video-title">Social Edit V</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 8 -->
+            <div class="video-card">
+                <video src="videos/motion_3.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>MOTION ACCENT</span><span>MP4</span></span>
+                    <h3 class="video-title">Motion Graphic Accent</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 9 -->
+            <div class="video-card">
+                <video src="videos/whatsapp_video_2.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>SOCIAL CUT II</span><span>MP4</span></span>
+                    <h3 class="video-title">Social Edit II</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 10 -->
+            <div class="video-card">
+                <video src="videos/whatsapp_video_4.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>SOCIAL CUT IV</span><span>MP4</span></span>
+                    <h3 class="video-title">Social Edit IV</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 11 -->
+            <div class="video-card">
+                <video src="videos/whatsapp_video_3.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>SOCIAL CUT III</span><span>MP4</span></span>
+                    <h3 class="video-title">Social Edit III</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 12 -->
+            <div class="video-card">
+                <video src="videos/whatsapp_video_1.mp4" controls loop muted playsinline preload="metadata"></video>
+                <div class="video-card-info">
+                    <span class="video-meta"><span>SOCIAL CUT I</span><span>MP4</span></span>
+                    <h3 class="video-title">Social Edit I</h3>
+                </div>
+            </div>
         </div>
 
         <a href="../" class="btn-back-home transition-link">
