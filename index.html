@@ -102,10 +102,10 @@
         <!-- Services & Capabilities Section (Outline Grid Style) -->
         <section id="services" class="services-grid-section">
             <div class="grid-container">
-                <div class="section-label">Technical Arsenal</div>
+                <div class="section-label fade-reveal">Technical Arsenal</div>
                 
                 <!-- Row 1 -->
-                <div class="grid-row" data-expand="video">
+                <div class="grid-row fade-reveal" style="transition-delay: 0.05s;" data-expand="video">
                     <div class="row-header">
                         <div class="row-title">
                             <span class="row-index">/01</span>
@@ -129,7 +129,7 @@
                 </div>
 
                 <!-- Row 2 -->
-                <div class="grid-row" data-expand="web">
+                <div class="grid-row fade-reveal" style="transition-delay: 0.1s;" data-expand="web">
                     <div class="row-header">
                         <div class="row-title">
                             <span class="row-index">/02</span>
@@ -150,7 +150,7 @@
                 </div>
 
                 <!-- Row 3 -->
-                <div class="grid-row" data-expand="piano">
+                <div class="grid-row fade-reveal" style="transition-delay: 0.15s;" data-expand="piano">
                     <div class="row-header">
                         <div class="row-title">
                             <span class="row-index">/03</span>
@@ -178,20 +178,20 @@
         <!-- About Section (Asymmetric Minimal Layout) -->
         <section id="about" class="about-editorial-section">
             <div class="about-container">
-                <div class="about-label">Profile Statement</div>
-                <div class="about-main-text">
+                <div class="about-label fade-reveal">Profile Statement</div>
+                <div class="about-main-text fade-reveal" style="transition-delay: 0.05s;">
                     <p class="editorial-statement">
                         I am jooxx, a 16-year-old creator crafting strong digital brands through sound, visuals, and code. Partnering with creators and tech teams to build the future.
                     </p>
                 </div>
                 <div class="about-sub-grid">
                     <div class="sub-col">
-                        <div class="about-photo-frame">
+                        <div class="about-photo-frame fade-reveal" style="transition-delay: 0.1s;">
                             <div class="about-photo-overlay"></div>
                             <img src="me.jpg" alt="jooxx" class="about-photo">
                         </div>
                     </div>
-                    <div class="sub-col about-details-col">
+                    <div class="sub-col about-details-col fade-reveal" style="transition-delay: 0.15s;">
                         <div>
                             <span class="mono-label">// Rhythmic Editing</span>
                             <p>Pacing is the heart of video editing. My training on the piano teaches me structural tempo, helping me execute edits that align dynamically to audio tracks.</p>
@@ -209,9 +209,9 @@
         <section id="contact" class="contact-editorial-section">
             <div class="contact-container">
                 <div class="contact-header-layout">
-                    <span class="contact-label">Collab</span>
-                    <h2>Start a project</h2>
-                    <div class="contact-meta-list" style="margin-top: 24px; display: flex; flex-direction: column; gap: 16px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
+                    <span class="contact-label fade-reveal">Collab</span>
+                    <h2 class="fade-reveal" style="transition-delay: 0.05s;">Start a project</h2>
+                    <div class="contact-meta-list fade-reveal" style="transition-delay: 0.1s; margin-top: 24px; display: flex; flex-direction: column; gap: 16px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
                         <div>
                             <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;">Email</span>
                             <a href="mailto:jooxxofficial@gmail.com" class="footer-link" style="color: var(--text-color);">jooxxofficial@gmail.com</a>
@@ -231,7 +231,8 @@
                       method="POST" 
                       target="hidden_collab_iframe" 
                       onsubmit="collab_submitted=true;"
-                      class="studio-form">
+                      class="studio-form fade-reveal"
+                      style="transition-delay: 0.1s;">
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="user-name" class="mono-label">Name</label>

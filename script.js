@@ -244,4 +244,22 @@ document.addEventListener('DOMContentLoaded', () => {
             transitionOverlay.classList.add('slide-out');
         }
     });
+
+    // --- 10. Global Viewport Fade-in Reveal Observer ---
+    const revealElements = document.querySelectorAll('.fade-reveal');
+    if (revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Reveal only once
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: "0px 0px -40px 0px"
+        });
+        
+        revealElements.forEach(el => revealObserver.observe(el));
+    }
 });
