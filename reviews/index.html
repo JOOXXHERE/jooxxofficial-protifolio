@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jooxx — Reviews</title>
+    <meta name="description" content="Read reviews, feedback, and client testimonials about my video editing and web development work.">
+    <!-- Google Fonts: Playfair Display (Serif) & Space Mono (Monospace) & Inter (Sans-Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="../favicon.jpg">
+    <style>
+        .reviews-portal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 100px 24px;
+            min-height: 100vh;
+        }
+
+        .portal-header {
+            max-width: 800px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 80px;
+        }
+
+        .portal-header h1 {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .portal-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+
+        /* Editorial Typography Testimonials List */
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .review-item {
+            padding: 48px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .review-item:first-child {
+            padding-top: 0;
+        }
+
+        .review-quote {
+            font-family: var(--font-serif);
+            font-size: 1.65rem;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .review-author {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .review-author::before {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        .btn-back-home {
+            margin-top: 60px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-back-home:hover {
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            .portal-header h1 {
+                font-size: 2.5rem;
+            }
+            .review-quote {
+                font-size: 1.35rem;
+            }
+            .reviews-portal {
+                padding: 80px 24px;
+            }
+            .review-item {
+                padding: 36px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Coordinate Crosshair Cursor -->
+    <div class="cursor-crosshair" id="cursor-crosshair"></div>
+    <div class="cursor-coords-badge" id="cursor-coords">X: 000 Y: 000</div>
+
+    <!-- Page Transition Overlay -->
+    <div class="page-transition-overlay slide-out" id="transition-overlay"></div>
+
+    <!-- Main Reviews Showcase -->
+    <main class="reviews-portal">
+        <div class="portal-header">
+            <span class="mono-label">// what clients say</span>
+            <h1>Reviews & Feedback</h1>
+            <p>Statements and critiques from creative partners, agencies, and contract collaborators.</p>
+        </div>
+
+        <div class="reviews-list">
+            <!-- Review 1 -->
+            <div class="review-item">
+                <blockquote class="review-quote">
+                    "The video pacing and synchronization in his cuts is masterfully done. An editor who truly understands auditory rhythm."
+                </blockquote>
+                <div class="review-author">Pulse Media Design Agency</div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-item">
+                <blockquote class="review-quote">
+                    "Built our landing experience with pristine slide transitions and responsive code. A highly talented engineer."
+                </blockquote>
+                <div class="review-author">VibeTech Studios</div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-item">
+                <blockquote class="review-quote">
+                    "His editing decisions translate directly into high-retention social content. Exceeded our expectations on layout revisions."
+                </blockquote>
+                <div class="review-author">Kinetic Media Networks</div>
+            </div>
+
+            <!-- Review 4 -->
+            <div class="review-item">
+                <blockquote class="review-quote">
+                    "A rare blend of musical intuition and post-production prowess. His editorial flow is incredibly clean."
+                </blockquote>
+                <div class="review-author">Director, SonicArts Collective</div>
+            </div>
+
+            <!-- Review 5 -->
+            <div class="review-item">
+                <blockquote class="review-quote">
+                    "Reliable delivery, fast response time, and exceptional creative direction. Highly recommended for premium reels."
+                </blockquote>
+                <div class="review-author">Apex Ventures Group</div>
+            </div>
+        </div>
+
+        <a href="../" class="btn-back-home transition-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </a>
+    </main>
+
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+</body>
+</html>
