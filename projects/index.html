@@ -48,10 +48,13 @@
             max-width: 600px;
         }
 
-        /* Raw Videos Masonry Wall - 6 Column Layout */
+        /* Raw Videos Metro Wall - Seamless Zero Gaps */
         .projects-grid {
-            column-count: 6;
-            column-gap: 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 240px;
+            grid-auto-flow: dense;
+            gap: 0;
             width: 100%;
             max-width: 1400px;
             margin-top: 50px;
@@ -60,17 +63,25 @@
 
         .projects-grid video {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
             margin: 0;
             padding: 0;
             border: none;
             border-radius: 0;
             background-color: #000;
-            object-fit: cover;
-            aspect-ratio: auto;
             transition: var(--transition-editorial);
-            break-inside: avoid;
+        }
+
+        .projects-grid video.horizontal {
+            grid-row: span 1;
+            grid-column: span 1;
+        }
+
+        .projects-grid video.vertical {
+            grid-row: span 2;
+            grid-column: span 1;
         }
 
         .projects-grid video:hover {
@@ -107,13 +118,15 @@
 
         @media (max-width: 1024px) {
             .projects-grid {
-                column-count: 4;
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: 200px;
             }
         }
 
         @media (max-width: 768px) {
             .projects-grid {
-                column-count: 3;
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 180px;
             }
             .portal-header h1 {
                 font-size: 2.5rem;
@@ -142,19 +155,19 @@
         </div>
 
         <div class="projects-grid">
-            <!-- Ordered Grid of Video Loops -->
-            <video src="videos/fully_finished.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/edited_no_audio.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/first_motion_video_lays.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/motion_2.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/motion_3.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/lyrical.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/lyrical_2.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/whatsapp_video_5.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/whatsapp_video_4.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/whatsapp_video_3.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/whatsapp_video_2.mp4" autoplay loop muted playsinline></video>
-            <video src="videos/whatsapp_video_1.mp4" autoplay loop muted playsinline></video>
+            <!-- Ordered Grid of Video Loops classified as Horizontal/Vertical spans -->
+            <video src="videos/fully_finished.mp4" class="horizontal" autoplay loop muted playsinline></video>
+            <video src="videos/edited_no_audio.mp4" class="horizontal" autoplay loop muted playsinline></video>
+            <video src="videos/first_motion_video_lays.mp4" class="horizontal" autoplay loop muted playsinline></video>
+            <video src="videos/motion_2.mp4" class="horizontal" autoplay loop muted playsinline></video>
+            <video src="videos/motion_3.mp4" class="horizontal" autoplay loop muted playsinline></video>
+            <video src="videos/lyrical.mp4" class="horizontal" autoplay loop muted playsinline></video>
+            <video src="videos/lyrical_2.mp4" class="horizontal" autoplay loop muted playsinline></video>
+            <video src="videos/whatsapp_video_5.mp4" class="vertical" autoplay loop muted playsinline></video>
+            <video src="videos/whatsapp_video_4.mp4" class="vertical" autoplay loop muted playsinline></video>
+            <video src="videos/whatsapp_video_3.mp4" class="vertical" autoplay loop muted playsinline></video>
+            <video src="videos/whatsapp_video_2.mp4" class="vertical" autoplay loop muted playsinline></video>
+            <video src="videos/whatsapp_video_1.mp4" class="vertical" autoplay loop muted playsinline></video>
         </div>
 
         <!-- YouTube Call to Action underneath grid -->
