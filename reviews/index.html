@@ -201,6 +201,21 @@
             color: var(--text-color);
         }
 
+        .db-status-badge {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-top: 8px;
+        }
+
+        .db-status-badge.synced {
+            color: #00ff66;
+            border-color: rgba(0, 255, 102, 0.2);
+        }
+
         @media (max-width: 768px) {
             .portal-header h1 {
                 font-size: 2.5rem;
@@ -229,12 +244,16 @@
     <!-- Page Transition Overlay -->
     <div class="page-transition-overlay slide-out" id="transition-overlay"></div>
 
+    <!-- Hidden Iframe to target form POST requests to prevent page redirects -->
+    <iframe name="hidden_reviews_iframe" id="hidden_reviews_iframe" style="display:none;" onload="if(window.reviews_submitted) { window.handleReviewsSuccess(); }"></iframe>
+
     <!-- Main Reviews Showcase -->
     <main class="reviews-portal">
-        <div class="portal-header fade-reveal">
+        <div class="portal-header">
             <span class="mono-label">// client statements</span>
             <h1>Reviews & Feedback</h1>
             <p>Statements and critiques from creative partners, agencies, and contract collaborators.</p>
+            <div class="db-status-badge" id="db-status">Loading Database...</div>
         </div>
 
         <!-- Write a Review Button -->
@@ -244,15 +263,18 @@
         <div class="review-form-container" id="review-form-box">
             <h3 class="mono-label" style="color: var(--text-color); font-size: 0.85rem;">Submit Testimonial</h3>
             
-            <form id="new-review-form">
+            <form id="new-review-form" method="POST" target="hidden_reviews_iframe">
+                <!-- Hidden inputs dynamically set names based on DB Config -->
+                <input type="hidden" id="reviewer-rating-input" name="entry.rating" value="5">
+
                 <div class="form-group">
                     <label for="reviewer-name" class="mono-label">Your Name / Agency</label>
-                    <input type="text" id="reviewer-name" class="studio-input" placeholder="e.g. John Doe, Pulse Media" required>
+                    <input type="text" id="reviewer-name" name="entry.name" class="studio-input" placeholder="e.g. John Doe, Pulse Media" required>
                 </div>
 
                 <div class="form-group margin-top-large">
                     <label for="reviewer-text" class="mono-label">Review / Feedback</label>
-                    <textarea id="reviewer-text" class="studio-textarea" placeholder="Tell others about your experience working with me..." required></textarea>
+                    <textarea id="reviewer-text" name="entry.text" class="studio-textarea" placeholder="Tell others about your experience working with me..." required></textarea>
                 </div>
 
                 <div class="rating-input-group margin-top-large">
@@ -267,7 +289,7 @@
                 </div>
 
                 <div class="submit-row" style="margin-top: 32px;">
-                    <button type="submit" class="btn-studio-submit">
+                    <button type="submit" class="btn-studio-submit" id="review-submit-btn">
                         Post Review <i class="fa-solid fa-paper-plane icon-right"></i>
                     </button>
                 </div>
@@ -287,6 +309,22 @@
     <!-- Custom JS -->
     <script src="../script.js"></script>
     <script>
+        // ==========================================================================
+        // GOOGLE SHEETS & FORMS DATABASE CONFIGURATION
+        // ==========================================================================
+        // To deploy your global reviews database:
+        // 1. Create a Google Form with 3 fields: Name, Review, and Rating.
+        // 2. Link it to a Google Sheet.
+        // 3. Publish the Google Sheet to the Web: File > Share > Publish to the Web > Select Sheet tab > CSV format.
+        // 4. Fill in the Form action URL, entry IDs, and published CSV link below.
+        const DB_CONFIG = {
+            formAction: "", // e.g. "https://docs.google.com/forms/d/e/.../formResponse"
+            entryName: "",   // e.g. "entry.1058441618"
+            entryText: "",   // e.g. "entry.2037064031"
+            entryRating: "", // e.g. "entry.340580791"
+            sheetsCsvUrl: "" // e.g. "https://docs.google.com/spreadsheets/d/e/.../pub?output=csv"
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             const btnToggleForm = document.getElementById('btn-toggle-form');
             const reviewFormBox = document.getElementById('review-form-box');
@@ -295,8 +333,29 @@
             const reviewerText = document.getElementById('reviewer-text');
             const starSelector = document.getElementById('star-selector');
             const reviewsFeed = document.getElementById('reviews-feed');
+            const ratingInput = document.getElementById('reviewer-rating-input');
+            const dbStatus = document.getElementById('db-status');
+            const submitBtn = document.getElementById('review-submit-btn');
 
-            let selectedRating = 5; // Default rating
+            let selectedRating = 5;
+            window.reviews_submitted = false;
+
+            // Check if DB Config is fully mapped
+            const isDbConfigured = DB_CONFIG.formAction && DB_CONFIG.entryName && DB_CONFIG.entryText && DB_CONFIG.entryRating && DB_CONFIG.sheetsCsvUrl;
+
+            if (isDbConfigured) {
+                dbStatus.textContent = "Google Sheets DB: Synced";
+                dbStatus.className = "db-status-badge synced";
+                
+                // Map Form settings dynamically
+                newReviewForm.action = DB_CONFIG.formAction;
+                reviewerName.name = DB_CONFIG.entryName;
+                reviewerText.name = DB_CONFIG.entryText;
+                ratingInput.name = DB_CONFIG.entryRating;
+            } else {
+                dbStatus.textContent = "Running: LocalStorage Mode (Setup Sheet link to Sync)";
+                dbStatus.className = "db-status-badge";
+            }
 
             // Toggle form open/close
             btnToggleForm.addEventListener('click', () => {
@@ -325,7 +384,6 @@
                 });
             }
 
-            // Initialize default stars (5 stars)
             updateStars(selectedRating);
 
             stars.forEach(star => {
@@ -340,24 +398,97 @@
 
                 star.addEventListener('click', () => {
                     selectedRating = parseInt(star.getAttribute('data-rating'));
+                    ratingInput.value = selectedRating;
                     updateStars(selectedRating, 'active');
                 });
             });
 
-            // LocalStorage reviews state
+            // --- Database Handlers ---
             const STORAGE_KEY = 'jooxx_portfolio_reviews';
 
-            function getReviews() {
+            function getLocalReviews() {
                 const data = localStorage.getItem(STORAGE_KEY);
                 return data ? JSON.parse(data) : [];
             }
 
-            function saveReviews(reviews) {
+            function saveLocalReviews(reviews) {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
             }
 
-            function renderReviews() {
-                const reviews = getReviews();
+            // CSV Parsing Logic
+            function parseCSV(csvText) {
+                const lines = [];
+                let row = [""];
+                let inQuotes = false;
+                
+                for (let i = 0; i < csvText.length; i++) {
+                    const char = csvText[i];
+                    const nextChar = csvText[i+1];
+                    
+                    if (char === '"') {
+                        if (inQuotes && nextChar === '"') {
+                            row[row.length - 1] += '"';
+                            i++;
+                        } else {
+                            inQuotes = !inQuotes;
+                        }
+                    } else if (char === ',' && !inQuotes) {
+                        row.push("");
+                    } else if ((char === '\r' || char === '\n') && !inQuotes) {
+                        if (char === '\r' && nextChar === '\n') {
+                            i++;
+                        }
+                        lines.push(row);
+                        row = [""];
+                    } else {
+                        row[row.length - 1] += char;
+                    }
+                }
+                if (row.length > 1 || row[0] !== "") {
+                    lines.push(row);
+                }
+                return lines;
+            }
+
+            async function fetchGlobalReviews() {
+                try {
+                    const response = await fetch(DB_CONFIG.sheetsCsvUrl);
+                    if (!response.ok) throw new Error("Network status error");
+                    const csvText = await response.text();
+                    const parsedLines = parseCSV(csvText);
+
+                    // Skip header line (Timestamp, Name, Review, Rating)
+                    const dataLines = parsedLines.slice(1);
+                    
+                    return dataLines.map(cols => {
+                        // Standard Google Sheet responses columns mapping
+                        // Timestamp is at cols[0], Name at cols[1], Review text at cols[2], Rating at cols[3]
+                        let rawDate = cols[0] || "";
+                        let cleanDate = rawDate.split(" ")[0] || rawDate; // extract date block
+                        
+                        return {
+                            name: cols[1] || "Anonymous",
+                            text: cols[2] || "",
+                            rating: parseInt(cols[3]) || 5,
+                            date: cleanDate
+                        };
+                    }).filter(r => r.text.trim() !== ""); // Filter out blank rows
+                } catch (e) {
+                    console.error("Sheets DB fetch error, falling back to LocalStorage:", e);
+                    return getLocalReviews();
+                }
+            }
+
+            async function renderReviews() {
+                reviewsFeed.innerHTML = '<div class="empty-state">Loading feedback stream...</div>';
+                
+                let reviews = [];
+                if (isDbConfigured) {
+                    reviews = await fetchGlobalReviews();
+                } else {
+                    reviews = getLocalReviews();
+                }
+
                 reviewsFeed.innerHTML = '';
 
                 if (reviews.length === 0) {
@@ -370,12 +501,11 @@
                 }
 
                 // Render in reverse chronological order (newest first)
-                reviews.slice().reverse().forEach((review, reversedIndex) => {
-                    const originalIndex = (reviews.length - 1) - reversedIndex;
+                reviews.slice().reverse().forEach(review => {
                     const item = document.createElement('div');
                     item.className = 'review-item';
 
-                    // Generate stars markup
+                    // Generate stars
                     let starsMarkup = '';
                     for (let i = 1; i <= 5; i++) {
                         if (i <= review.rating) {
@@ -413,40 +543,87 @@
                 );
             }
 
-            // Post new review handler
+            // Post new review form submission handler
             newReviewForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-
                 const name = reviewerName.value.trim();
                 const text = reviewerText.value.trim();
                 
-                if (!name || !text) return;
+                if (!name || !text) {
+                    e.preventDefault();
+                    return;
+                }
 
-                const newReview = {
+                // Optimistic UI updates
+                const tempReview = {
                     name: name,
                     text: text,
                     rating: selectedRating,
                     date: new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
                 };
 
-                const reviews = getReviews();
-                reviews.push(newReview);
-                saveReviews(reviews);
+                // Trigger submission animations
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Posting... <i class="fa-solid fa-spinner fa-spin icon-right"></i>';
 
-                // Reset form
-                newReviewForm.reset();
-                selectedRating = 5;
-                updateStars(selectedRating);
+                if (isDbConfigured) {
+                    // Running under sheets DB: Forms POST occurs in hidden iframe target
+                    window.reviews_submitted = true;
+                    
+                    // Optimistic insert to make UX look instant
+                    const feedList = document.getElementById('reviews-feed');
+                    const emptyState = document.getElementById('reviews-empty');
+                    if (emptyState) emptyState.remove();
 
-                // Hide form
-                reviewFormBox.style.display = 'none';
-                btnToggleForm.textContent = 'Write a Review';
-
-                // Rerender feed
-                renderReviews();
+                    const optimisticItem = document.createElement('div');
+                    optimisticItem.className = 'review-item';
+                    let starsMarkup = '';
+                    for (let i = 1; i <= 5; i++) {
+                        starsMarkup += i <= selectedRating ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+                    }
+                    optimisticItem.innerHTML = `
+                        <div class="review-stars">${starsMarkup}</div>
+                        <blockquote class="review-quote">"${escapeHTML(text)}"</blockquote>
+                        <div class="review-author-meta">
+                            <span class="review-author">${escapeHTML(name)}</span>
+                            <span>Just Now</span>
+                        </div>
+                    `;
+                    feedList.insertBefore(optimisticItem, feedList.firstChild);
+                } else {
+                    e.preventDefault(); // cancel standard submit since we are in LocalStorage fallback
+                    const reviews = getLocalReviews();
+                    reviews.push(tempReview);
+                    saveLocalReviews(reviews);
+                    
+                    handlePostReset();
+                    renderReviews();
+                }
             });
 
-            // Initial render
+            function handlePostReset() {
+                newReviewForm.reset();
+                selectedRating = 5;
+                ratingInput.value = selectedRating;
+                updateStars(selectedRating);
+                reviewFormBox.style.display = 'none';
+                btnToggleForm.textContent = 'Write a Review';
+                
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Post Review <i class="fa-solid fa-paper-plane icon-right"></i>';
+            }
+
+            // Triggers when hidden iframe finishes loading (success)
+            window.handleReviewsSuccess = () => {
+                handlePostReset();
+                window.reviews_submitted = false;
+
+                // Re-fetch sheet list to align states
+                setTimeout(() => {
+                    renderReviews();
+                }, 2000); // 2 second delay to let Google Sheet process response
+            };
+
+            // Initial feed load
             renderReviews();
         });
     </script>
