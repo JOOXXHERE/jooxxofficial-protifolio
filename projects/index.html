@@ -126,6 +126,106 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
 
+        /* Websites Section Grid */
+        .websites-grid {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .website-card {
+            display: flex;
+            flex-direction: column;
+            width: 450px;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: rgba(18, 18, 18, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: var(--transition-editorial);
+        }
+
+        .website-card:hover {
+            border-color: var(--text-color);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .web-preview-frame {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #000;
+        }
+
+        .web-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .website-card:hover .web-preview-img {
+            transform: scale(1.05);
+        }
+
+        .web-preview-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .website-card:hover .web-preview-overlay {
+            opacity: 1;
+        }
+
+        .web-preview-overlay span {
+            color: #fff;
+            font-size: 0.8rem;
+            border: 1px solid #fff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .web-details {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .web-details h3 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--text-color);
+        }
+
+        .web-details p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
         .btn-back-home {
             margin-top: 50px;
             font-family: var(--font-mono);
@@ -167,6 +267,13 @@
                 width: 100%;
                 max-width: 300px;
                 height: 440px;
+            }
+            .website-card {
+                width: 100%;
+                max-width: 328px;
+            }
+            .web-preview-frame {
+                height: 180px;
             }
         }
     </style>
@@ -225,7 +332,33 @@
             <iframe src="https://www.instagram.com/reel/Da0VOevyuw0/embed/" class="instagram-frame fade-reveal" style="transition-delay: 0.3s;" frameborder="0" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
         </div>
 
-        <a href="../" class="btn-back-home transition-link fade-reveal" style="transition-delay: 0.4s;">
+        <!-- Divider line between Musics & Websites Built sections -->
+        <div class="fade-reveal" style="width: 100%; max-width: 1400px; height: 1px; background-color: var(--border-color); margin: 60px 0 80px 0;"></div>
+
+        <!-- Websites Section Header -->
+        <div class="portal-header fade-reveal">
+            <span class="mono-label">// web systems & interactive interfaces</span>
+            <h1 style="margin-top: 10px;">Websites Built</h1>
+            <p>Custom-built web platforms, landing pages, and web applications designed for maximum performance.</p>
+        </div>
+
+        <!-- Websites Grid -->
+        <div class="websites-grid">
+            <a href="https://sxg.cc.cd" target="_blank" class="website-card fade-reveal" style="transition-delay: 0.1s;">
+                <div class="web-preview-frame">
+                    <img src="images/sxg_preview.jpg" alt="sxg.cc.cd preview" class="web-preview-img">
+                    <div class="web-preview-overlay">
+                        <span>Launch Site <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </div>
+                </div>
+                <div class="web-details">
+                    <h3>sxg.cc.cd</h3>
+                    <p>Custom URL shortener and portal layout designed for fast redirection and dynamic links navigation.</p>
+                </div>
+            </a>
+        </div>
+
+        <a href="../" class="btn-back-home transition-link fade-reveal" style="transition-delay: 0.2s;">
             <i class="fa-solid fa-arrow-left"></i> Back to Home
         </a>
     </main>
